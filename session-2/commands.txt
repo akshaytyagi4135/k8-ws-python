@@ -1,0 +1,9 @@
+Step 1: Create a Custom Docker Network
+Run the following command to create a network:
+#docker network create service-network
+Step 2: Run the Inventory Service
+Start the inventory service container and attach it to the custom network:
+#docker run -d --name inventory-container --network service-network -p 8082:8082
+Step 3: Run the Order Service
+Start the container and pass the URL for the inventory service using environment variables:
+#docker run -d --name order-container --network service-network -p 8083:8083 -e INVENTORY_SERVICE_URL=http://inventory-container:8082 order-service:latest
